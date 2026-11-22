@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Server By Phant1mx — Общение, Обсуждения и т.д.</title>
+<style>
+  :root {
+    --bg: #0b0d14;
+    --bg-card: #131724;
+    --bg-card-hover: #191f31;
+    --border: rgba(255, 255, 255, 0.08);
+    --blurple: #5865F2;
+    --blurple-hover: #4752C4;
+    --accent: #00d2ff;
+    --gold: #f5b942;
+    --danger: #f23f43;
+    --success: #23a55a;
+    --text: #f2f3f5;
+    --muted: #949ba4;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: radial-gradient(circle at 15% 10%, rgba(88, 101, 242, 0.16), transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(0, 210, 255, 0.10), transparent 45%),
+                var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Навигация */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11, 13, 20, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: 0.3px;
+  }
+
+  .brand-badge {
+    background: linear-gradient(135deg, var(--blurple), var(--accent));
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 900;
+  }
+
+  nav {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+
+  nav a:hover {
+    color: var(--text);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    background: var(--blurple);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(88, 101, 242, 0.38);
+  }
+
+  .btn-primary:hover {
+    background: var(--blurple-hover);
+  }
+
+  .btn-outline {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.11);
+  }
+
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Главный экран */
+  .hero {
+    padding: 72px 0 56px;
+    text-align: center;
+  }
+
+  .owner-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(245, 185, 66, 0.12);
+    border: 1px solid rgba(245, 185, 66, 0.35);
+    color: var(--gold);
+    font-size: 0.86rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 4.5vw, 3.3rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    background: linear-gradient(90deg, #ffffff, #b8c2ff, #7be6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero p {
+    max-width: 680px;
+    margin: 0 auto 28px;
+    color: var(--muted);
+    font-size: 1.08rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+  }
+
+  .invite-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .invite-box code {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Секции */
+  section {
+    padding: 48px 0;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    margin-bottom: 28px;
+    font-size: 0.98rem;
+  }
+
+  /* Сетка карточек */
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 18px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(88, 101, 242, 0.45);
+  }
+
+  .card h3 {
+    font-size: 1.12rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card p {
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+
+  /* Иерархия ролей */
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+  }
+
+  .role-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.93rem;
+  }
+
+  .role-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Правила */
+  .rules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  details.rule-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  details.rule-block summary {
+    padding: 16px 20px;
+    font-weight: 700;
+    font-size: 1.02rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  details.rule-block summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .rule-tag {
+    font-size: 0.8rem;
+    padding: 3px 10px;
+    border-radius: 6px;
+    background: rgba(88, 101, 242, 0.2);
+    color: #b8c2ff;
+  }
+
+  .rule-body {
+    padding: 0 20px 18px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  .rule-body ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .rule-body li {
+    font-size: 0.94rem;
+    color: #dcdee3;
+    padding-left: 12px;
+    border-left: 2px solid var(--blurple);
+  }
+
+  .punish {
+    color: #ff8a8c;
+    font-weight: 600;
+  }
+
+  /* Генератор анкеты */
+  .form-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .field label {
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .field input, .field textarea {
+    background: #0b0d14;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+
+  .field input:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--blurple);
+  }
+
+  .preview-box {
+    background: #0b0d14;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .preview-text {
+    white-space: pre-wrap;
+    font-family: Consolas, monospace;
+    font-size: 0.9rem;
+    color: #d7e3ff;
+  }
+
+  .copy-status {
+    font-size: 0.86rem;
+    color: var(--success);
+    font-weight: 700;
+    min-height: 20px;
+  }
+
+  footer {
+    margin-top: 40px;
+    padding: 28px 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <a href="#" class="brand">
+      <span class="brand-badge">DS</span>
+      <span>Server By Phant1mx</span>
+    </a>
+    <nav>
+      <a href="#about">О сервере</a>
+      <a href="#roles">12 Ролей</a>
+      <a href="#rules">Кодекс правил</a>
+      <a href="#anketa">Анкета игрока</a>
+    </nav>
+    <a href="https://discord.gg/vYhbw3hPed" target="_blank" rel="noopener" class="btn btn-primary">
+      Вступить в Discord
+    </a>
+  </div>
+</header>
+
+<main class="container">
+  <!-- Главный баннер -->
+  <section class="hero">
+    <div class="owner-pill">👑 Владелец сервера: Phant1mx</div>
+    <h1>Server By Phant1mx<br>Общение, Обсуждения и т.д.</h1>
+    <p>
+      Официальное сообщество для живого общения, совместных каток в Geometry Dash, Minecraft, Roblox, VRChat и CS:S,
+      конкурсов и новостей по авторским проектам от Phant1mx.
+    </p>
+    <div class="hero-actions">
+      <a href="https://discord.gg/vYhbw3hPed" target="_blank" rel="noopener" class="btn btn-primary">
+        🚀 Присоединиться по вечной ссылке
+      </a>
+      <a href="#anketa" class="btn btn-outline">
+        📝 Заполнить анкету на роль Игрока
+      </a>
+    </div>
+    <div class="invite-box">
+      <span>Бессрочное приглашение:</span>
+      <code id="inviteLink">https://discord.gg/vYhbw3hPed</code>
+      <button class="btn btn-outline" style="padding: 5px 12px; font-size: 0.82rem;" onclick="copyInvite()">
+        Копировать
+      </button>
+    </div>
+  </section>
+
+  <!-- О сервере и проектах -->
+  <section id="about">
+    <h2 class="section-title">Чем мы занимаемся на сервере</h2>
+    <p class="section-sub">Честная атмосфера, чёткие правила без блата и регулярные новости от Владельца.</p>
+    <div class="grid-3">
+      <div class="card">
+        <h3>🟦 Geometry Dash & Посты</h3>
+        <p>Эксклюзивные посты в канале <strong>#посты-gd</strong>, прогресс по созданию уровней (включая <em>Congregation Z</em>) и совместные тесты.</p>
+      </div>
+      <div class="card">
+        <h3>⛏️ Игровые кланы и рейды</h3>
+        <p>Совместное выживание и стройка в Minecraft, угарные заходы в VRChat, катки в Roblox, Geometry Dash и Counter-Strike: Source.</p>
+      </div>
+      <div class="card">
+        <h3>⚖️ Справедливый порядок</h3>
+        <p>Прозрачная система из 12 ролей и строгий кодекс правил: модерация не имеет права блатить друзей или выдавать наказания без причины.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 ролей -->
+  <section id="roles">
+    <h2 class="section-title">Иерархия из 12 ролей</h2>
+    <p class="section-sub">От новичка до Владельца — каждый знает свои права и зону ответственности.</p>
+    <div class="roles-grid">
+      <div class="role-item"><span class="role-dot" style="background:#f5b942;"></span>1. Владелец (Phant1mx)</div>
+      <div class="role-item"><span class="role-dot" style="background:#ff5555;"></span>2. Помощник Владельца</div>
+      <div class="role-item"><span class="role-dot" style="background:#e91e63;"></span>3. Главный Администратор</div>
+      <div class="role-item"><span class="role-dot" style="background:#9b59b6;"></span>4. Старший Модератор</div>
+      <div class="role-item"><span class="role-dot" style="background:#3498db;"></span>5. Модератор</div>
+      <div class="role-item"><span class="role-dot" style="background:#1abc9c;"></span>6. Младший Модератор</div>
+      <div class="role-item"><span class="role-dot" style="background:#f1c40f;"></span>7. Организатор / Ивентер</div>
+      <div class="role-item"><span class="role-dot" style="background:#e67e22;"></span>8. VIP / Легенда сервера</div>
+      <div class="role-item"><span class="role-dot" style="background:#2ecc71;"></span>9. Проверенный Игрок</div>
+      <div class="role-item"><span class="role-dot" style="background:#5865F2;"></span>10. Игрок (после анкеты)</div>
+      <div class="role-item"><span class="role-dot" style="background:#95a5a6;"></span>11. Новичок (без анкеты)</div>
+      <div class="role-item"><span class="role-dot" style="background:#607d8b;"></span>12. Боты и сервисы</div>
+    </div>
+  </section>
+
+  <!-- Правила сервера -->
+  <section id="rules">
+    <h2 class="section-title">Кодекс правил сервера</h2>
+    <p class="section-sub">Незнание правил не освобождает от ответственности. Слово Владельца является главным.</p>
+    <div class="rules-list">
+      <details class="rule-block" open>
+        <summary>
+          <span>Подкатегория N1 — Общие правила для всех участников</span>
+          <span class="rule-tag">Пункты 1.1 – 1.9</span>
+        </summary>
+        <div class="rule-body">
+          <ul>
+            <li><strong>1.1:</strong> На сервере нельзя материться. <span class="punish">(Мут на 30 минут)</span></li>
+            <li><strong>1.2:</strong> Нельзя обзываться и оскорблять игроков в чатах и войсе. <span class="punish">(Мут на 1 час)</span></li>
+            <li><strong>1.3:</strong> Не допущено оскорблять Владельца и его помощников. <span class="punish">(Мут на 1 день)</span></li>
+            <li><strong>1.4:</strong> Вы должны подать заявку на получение роли игрока. <span class="punish">(Неисполнение — кик с сервера, проверка каждый понедельник)</span></li>
+            <li><strong>1.5:</strong> Строго запрещено обсуждать запрещённые темы, например курение. <span class="punish">(Мут на 6 часов)</span></li>
+            <li><strong>1.6:</strong> Когда проходят конкурсы/праздники, материться можно. <span class="punish">(Без наказаний)</span></li>
+            <li><strong>1.7:</strong> Нельзя спамить и кидать рекламу/левые ссылки. <span class="punish">(Мут на 1 день или бан)</span></li>
+            <li><strong>1.8:</strong> Нельзя пинговать Владельца и помощников без причины, писать в личку по ролям можно только 1 раз. <span class="punish">(Мут на 1 час)</span></li>
+            <li><strong>1.9:</strong> В войсе запрещено орать и включать громкий саундпад. <span class="punish">(Мут в войсе на 1 час)</span></li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="rule-block">
+        <summary>
+          <span>Подкатегория N2 — Правила для Модерации и Администрации</span>
+          <span class="rule-tag">Пункты 2.1 – 2.5</span>
+        </summary>
+        <div class="rule-body">
+          <ul>
+            <li><strong>2.1:</strong> Запрещено выдавать муты, кики и баны просто так и без указания причины. <span class="punish">(Снятие на 3 дня)</span></li>
+            <li><strong>2.2:</strong> Запрещено блатить друзей и снимать им заслуженные муты без разрешения Владельца, сообщать Владельцу в ЛС. <span class="punish">(Снятие на 7 дней)</span></li>
+            <li><strong>2.3:</strong> Модерам запрещено менять каналы, роли и настройки сервера без спроса. <span class="punish">(Полное снятие)</span></li>
+            <li><strong>2.4:</strong> На модерацию действуют правила 1 подкатегории, также запрещено спорить с Владельцем при всех и сливать Админ-чат. <span class="punish">(Снятие/бан)</span></li>
+            <li><strong>2.5:</strong> Слово Владельца сервера является главным — он может изменить любое правило на своё усмотрение. <span class="punish">(Без обсуждений)</span></li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="rule-block">
+        <summary>
+          <span>Подкатегория N3 — Особо тяжкие нарушения</span>
+          <span class="rule-tag">Пункты 3.1 – 3.2</span>
+        </summary>
+        <div class="rule-body">
+          <ul>
+            <li><strong>3.1:</strong> Запрещено ДИКОЕ нарушение правил! <span class="punish">(Бан на 30 дней + кик)</span></li>
+            <li><strong>3.2:</strong> Запрещено СУПЕР ДИКОЕ нарушение правил! <span class="punish">(Бан навсегда + кик с сервера)</span></li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Интерактивный генератор анкеты -->
+  <section id="anketa">
+    <h2 class="section-title">Генератор анкеты на роль «Игрок»</h2>
+    <p class="section-sub">По правилу 1.4 каждый новичок должен подать заявку (проверка каждый понедельник). Заполни форму ниже и вставь готовый текст в Discord!</p>
+    <div class="form-box">
+      <div>
+        <div class="field">
+          <label for="fNick">1. Твой ник в Discord / играх</label>
+          <input type="text" id="fNick" placeholder="Например: Player2026" oninput="updateAnketa()">
+        </div>
+        <div class="field">
+          <label for="fGames">2. В какие игры играешь?</label>
+          <input type="text" id="fGames" placeholder="Например: Geometry Dash, Minecraft, Roblox" oninput="updateAnketa()">
+        </div>
+        <div class="field">
+          <label for="fAbout">3. Пару слов о себе и ознакомлении с правилами</label>
+          <textarea id="fAbout" rows="3" placeholder="Правила N1–N3 прочитал, обязуюсь соблюдать!" oninput="updateAnketa()"></textarea>
+        </div>
+      </div>
+
+      <div class="preview-box">
+        <div>
+          <div style="font-size:0.84rem; color:var(--muted); margin-bottom:8px;">Готовая заявка для отправки на сервер:</div>
+          <div class="preview-text" id="anketaPreview">📋 ЗАЯВКА НА РОЛЬ «ИГРОК»
+• Ник: [не указан]
+• Игры: [не указаны]
+• О себе и правилах: Правила N1–N3 прочитал, обязуюсь соблюдать!</div>
+        </div>
+        <div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="copyAnketa()">📋 Скопировать анкету</button>
+            <a href="https://discord.gg/vYhbw3hPed" target="_blank" rel="noopener" class="btn btn-outline">Открыть Discord ↗</a>
+          </div>
+          <div class="copy-status" id="copyStatus"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2026 <strong>Server By Phant1mx — Общение, Обсуждения и т.д.</strong> • Официальный портал сообщества
+</footer>
+
+<script>
+  function copyInvite() {
+    const link = document.getElementById('inviteLink').textContent;
+    navigator.clipboard.writeText(link).then(() => {
+      alert('Вечная ссылка скопирована: ' + link);
+    });
+  }
+
+  function updateAnketa() {
+    const nick = document.getElementById('fNick').value.trim() || '[не указан]';
+    const games = document.getElementById('fGames').value.trim() || '[не указаны]';
+    const about = document.getElementById('fAbout').value.trim() || 'Правила N1–N3 прочитал, обязуюсь соблюдать!';
+    document.getElementById('anketaPreview').textContent =
+      `📋 ЗАЯВКА НА РОЛЬ «ИГРОК»
+• Ник: ${nick}
+• Игры: ${games}
+• О себе и правилах: ${about}`;
+  }
+
+  function copyAnketa() {
+    const text = document.getElementById('anketaPreview').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const status = document.getElementById('copyStatus');
+      status.textContent = '✅ Анкета скопирована! Переходи в Discord и отправляй её в канал.';
+      setTimeout(() => { status.textContent = ''; }, 4000);
+    });
+  }
+</script>
+
+</body>
+</html>
