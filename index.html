@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Server By Phant1mx — Официальный сайт Discord-сообщества</title>
+  <style>
+    :root {
+      --bg-dark: #0b0d14;
+      --bg-card: #131724;
+      --bg-card-hover: #1a2033;
+      --blurple: #5865F2;
+      --blurple-hover: #4752c4;
+      --cyan: #00e5ff;
+      --green: #23a559;
+      --red: #f23f43;
+      --text-main: #f2f3f5;
+      --text-muted: #b5bac1;
+      --border: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Inter, system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 15% 10%, rgba(88, 101, 242, 0.18), transparent 40%),
+                  radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.10), transparent 40%),
+                  var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 13, 20, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 0.4px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, var(--blurple), var(--cyan));
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--blurple);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(88, 101, 242, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--blurple-hover);
+    }
+
+    .btn-download {
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(0, 180, 216, 0.35);
+    }
+
+    .btn-download:hover {
+      box-shadow: 0 6px 22px rgba(0, 229, 255, 0.5);
+    }
+
+    .btn-recommend {
+      background: linear-gradient(135deg, #f59e0b, #ea580c);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.38);
+    }
+
+    .btn-recommend:hover {
+      box-shadow: 0 6px 22px rgba(245, 158, 11, 0.55);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Container & Sections */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 64px 0;
+    }
+
+    .section-title {
+      font-size: 1.9rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-size: 1.02rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .hero-pill {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(88, 101, 242, 0.18);
+      border: 1px solid rgba(88, 101, 242, 0.45);
+      color: #a5b4fc;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      background: linear-gradient(90deg, #ffffff, #a5b4fc, #00e5ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0 auto 30px;
+      color: var(--text-muted);
+      font-size: 1.12rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .invite-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-family: monospace;
+      font-size: 0.98rem;
+      color: var(--cyan);
+    }
+
+    /* Grid Cards */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: transform 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      background: var(--bg-card-hover);
+      border-color: rgba(88, 101, 242, 0.45);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Socials */
+    .socials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+    }
+
+    .social-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      text-decoration: none;
+      color: #fff;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .social-card.yt:hover {
+      transform: translateY(-4px);
+      border-color: #ff0033;
+      box-shadow: 0 8px 25px rgba(255, 0, 51, 0.22);
+    }
+
+    .social-card.tw:hover {
+      transform: translateY(-4px);
+      border-color: #9146ff;
+      box-shadow: 0 8px 25px rgba(145, 70, 255, 0.25);
+    }
+
+    .social-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+
+    .badge-yt {
+      background: rgba(255, 0, 51, 0.18);
+      color: #ff4d6d;
+    }
+
+    .badge-tw {
+      background: rgba(145, 70, 255, 0.2);
+      color: #c084fc;
+    }
+
+    .social-handle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 6px;
+      word-break: break-all;
+    }
+
+    /* Roles */
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .role-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+    }
+
+    .role-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: 0 0 10px currentColor;
+    }
+
+    /* Rules Accordion */
+    .rules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    details.rule-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    details.rule-box summary {
+      padding: 18px 22px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    details.rule-box summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.rule-box summary::after {
+      content: '▼';
+      font-size: 0.8rem;
+      color: var(--cyan);
+      transition: transform 0.2s;
+    }
+
+    details.rule-box[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .rule-content {
+      padding: 18px 22px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .rule-content strong {
+      color: #fff;
+    }
+
+    .punishment {
+      color: #fca5a5;
+      font-weight: 600;
+    }
+
+    /* Anketa Form */
+    .anketa-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(88, 101, 242, 0.35);
+      border-radius: 18px;
+      padding: 28px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0b0d14;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+
+    .games-checkboxes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip-check {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #0b0d14;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .preview-box {
+      background: #080a0f;
+      border: 1px dashed rgba(0, 229, 255, 0.4);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      color: #e2e8f0;
+      margin-top: 16px;
+      font-size: 0.9rem;
+    }
+
+    /* Modal: Рекомендуем установить */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 7, 12, 0.84);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-window {
+      background: #111522;
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 1080px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .modal-header h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-close {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: #fff;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover {
+      background: var(--red);
+    }
+
+    .modal-body {
+      padding: 22px 24px;
+      overflow-y: auto;
+    }
+
+    .modal-hint {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .games-modal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+      gap: 16px;
+    }
+
+    .game-card {
+      background: #171c2e;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.18s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .game-card:hover {
+      transform: translateY(-4px);
+      border-color: #f59e0b;
+      box-shadow: 0 10px 24px rgba(245, 158, 11, 0.24);
+    }
+
+    .game-thumb-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 460 / 215;
+      background: #0b0e17;
+      overflow: hidden;
+    }
+
+    .game-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .game-card:hover .game-thumb-wrap img {
+      transform: scale(1.05);
+    }
+
+    .fav-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(245, 158, 11, 0.92);
+      color: #0b0d14;
+      font-size: 0.68rem;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 6px;
+      z-index: 2;
+    }
+
+    .game-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(11, 13, 20, 0.72);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: #fbbf24;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .game-card:hover .game-overlay {
+      opacity: 1;
+    }
+
+    .game-info {
+      padding: 12px 14px;
+    }
+
+    .game-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .game-tag {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Навигация -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <span class="logo-badge">PHANT1MX</span>
+        <span>Server By Phant1mx</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#about">О сервере</a>
+        <a href="#socials">Соцсети</a>
+        <a href="#roles">12 Ролей</a>
+        <a href="#rules">Кодекс N1–N12</a>
+        <a href="#anketa">Анкета</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="btn btn-recommend" onclick="openGamesModal()">🎮 Рекомендуем установить</button>
+        <a href="https://discord.com/" target="_blank" rel="noopener noreferrer" class="btn btn-download">⬇️ Нету Discord? Скачай!</a>
+        <a href="https://discord.gg/vYhbw3hPed" target="_blank" rel="noopener noreferrer" class="btn btn-primary">🚀 Вступить в Discord</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Главный экран -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-pill">🛡️ Официальный портал сообщества Phant1mx</div>
+      <h1>Server By Phant1mx —<br>Общение, Обсуждения и Игры</h1>
+      <p>
+        Уютное игровое комьюнити для совместных каток, общения в войсе, обсуждений,
+        строительства уровней в Geometry Dash, клановых баталий в Minecraft и честной игры без читеров.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="https://discord.gg/vYhbw3hPed" target="_blank" rel="noopener noreferrer" class="btn btn-primary">🚀 Вступить на сервер Discord</a>
+        <button type="button" class="btn btn-recommend" onclick="openGamesModal()">🎮 Рекомендуем установить (17 игр)</button>
+        <a href="https://discord.com/" target="_blank" rel="noopener noreferrer" class="btn btn-download">⬇️ Нету Discord? Скачай!</a>
+        <a href="#anketa" class="btn btn-outline">📋 Заполнить анкету</a>
+      </div>
+
+      <div class="invite-box">
+        <span id="inviteText">https://discord.gg/vYhbw3hPed</span>
+        <button type="button" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.82rem;" onclick="copyInvite()">📋 Копировать</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- О сервере -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">🔥 Чем мы занимаемся на сервере</h2>
+      <p class="section-subtitle">Главные направления нашего сообщества под руководством Владельца Phant1mx</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>🟦 Geometry Dash & #посты-gd</h3>
+          <p>Делимся прогрессом, тестами уровней, декором и прохождениями, включая авторский мега-проект <strong>Congregation Z</strong>.</p>
+        </div>
+        <div class="card">
+          <h3>⛏️ Minecraft, Roblox & VRChat</h3>
+          <p>Совместные выживания, постройка клановых баз, поиск крутых плейсов в Roblox, вечера в VRChat и катки в Counter-Strike 2.</p>
+        </div>
+        <div class="card">
+          <h3>🛡️ Честная игра и порядок</h3>
+          <p>Прозрачный Кодекс правил N1–N12, строгая античит-проверка (Проверка 1–5) и отзывчивая команда модерации.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Официальные соцсети -->
+  <section id="socials">
+    <div class="container">
+      <h2 class="section-title">📺 Официальные соцсети Phant1mx</h2>
+      <p class="section-subtitle">Подписывайся на каналы владельца сервера, чтобы не пропустить новые видео и прямые эфиры</p>
+
+      <div class="socials-grid">
+        <a href="https://www.youtube.com/@phant1mx_original_2" target="_blank" rel="noopener noreferrer" class="social-card yt">
+          <div>
+            <span class="social-badge badge-yt">YOUTUBE • ОСНОВНОЙ</span>
+            <h3>Главный канал Phant1mx</h3>
+            <div class="social-handle">@phant1mx_original_2</div>
+          </div>
+          <div style="margin-top: 16px; font-weight: 700; color: #ff4d6d;">Перейти на канал ↗</div>
+        </a>
+
+        <a href="https://www.youtube.com/@Phant1mx_original" target="_blank" rel="noopener noreferrer" class="social-card yt">
+          <div>
+            <span class="social-badge badge-yt">YOUTUBE • ВТОРОЙ КАНАЛ</span>
+            <h3>Второй канал Phant1mx</h3>
+            <div class="social-handle">@Phant1mx_original</div>
+          </div>
+          <div style="margin-top: 16px; font-weight: 700; color: #ff4d6d;">Перейти на канал ↗</div>
+        </a>
+
+        <a href="https://www.youtube.com/@Phant1mx_original_stream" target="_blank" rel="noopener noreferrer" class="social-card yt">
+          <div>
+            <span class="social-badge badge-yt">YOUTUBE • СТРИМЫ</span>
+            <h3>Стрим-канал YouTube</h3>
+            <div class="social-handle">@Phant1mx_original_stream</div>
+          </div>
+          <div style="margin-top: 16px; font-weight: 700; color: #ff4d6d;">Смотреть стримы ↗</div>
+        </a>
+
+        <a href="https://www.twitch.tv/phant1mx_original" target="_blank" rel="noopener noreferrer" class="social-card tw">
+          <div>
+            <span class="social-badge badge-tw">TWITCH • ПРЯМЫЕ ЭФИРЫ</span>
+            <h3>Официальный Twitch</h3>
+            <div class="social-handle">twitch.tv/phant1mx_original</div>
+          </div>
+          <div style="margin-top: 16px; font-weight: 700; color: #c084fc;">Открыть Twitch ↗</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 Ролей -->
+  <section id="roles">
+    <div class="container">
+      <h2 class="section-title">👑 Иерархия 12 ролей сервера</h2>
+      <p class="section-subtitle">Точная структура ролей от Владельца до Игрока в соответствии с правами Discord</p>
+
+      <div class="roles-grid">
+        <div class="role-item" style="color: #ed4245;"><span class="role-dot" style="background: #ed4245;"></span> 1. Владелец</div>
+        <div class="role-item" style="color: #11806a;"><span class="role-dot" style="background: #11806a;"></span> 2. Помощник</div>
+        <div class="role-item" style="color: #1abc9c;"><span class="role-dot" style="background: #1abc9c;"></span> 3. Гл. Админ</div>
+        <div class="role-item" style="color: #1f8b4c;"><span class="role-dot" style="background: #1f8b4c;"></span> 4. Ст. Админ</div>
+        <div class="role-item" style="color: #2ecc71;"><span class="role-dot" style="background: #2ecc71;"></span> 5. Админ</div>
+        <div class="role-item" style="color: #71368a;"><span class="role-dot" style="background: #71368a;"></span> 6. Мл. Админ</div>
+        <div class="role-item" style="color: #9b59b6;"><span class="role-dot" style="background: #9b59b6;"></span> 7. Гл. Модер</div>
+        <div class="role-item" style="color: #a855f7;"><span class="role-dot" style="background: #a855f7;"></span> 8. Ст. Модер</div>
+        <div class="role-item" style="color: #206694;"><span class="role-dot" style="background: #206694;"></span> 9. Модер</div>
+        <div class="role-item" style="color: #3498db;"><span class="role-dot" style="background: #3498db;"></span> 10. Мл. Модер</div>
+        <div class="role-item" style="color: #bcc0c0;"><span class="role-dot" style="background: #bcc0c0;"></span> 11. Любимчик</div>
+        <div class="role-item" style="color: #607d8b;"><span class="role-dot" style="background: #607d8b;"></span> 12. Игрок</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Кодекс правил N1-N12 -->
+  <section id="rules">
+    <div class="container">
+      <h2 class="section-title">⚖️ Кодекс правил сервера (Подкатегории N1 — N12)</h2>
+      <p class="section-subtitle">Нажми на любую подкатегорию, чтобы раскрыть полный список правил и наказаний</p>
+
+      <div class="rules-list">
+        <details class="rule-box" open>
+          <summary>Подкатегория N1: Общие правила</summary>
+          <div class="rule-content">
+            <p><strong>1.1. Спам:</strong> не спамить в текстовых каналах (от 5 сообщений подряд). <span class="punishment">Наказание: Мут (текст) на 1 час.</span></p>
+            <p><strong>1.2. Оскорбления:</strong> не оскорблять участников ни в чатах, ни в голосовых каналах. <span class="punishment">Наказание: Мут (текст) на 1 час 30 мин / (войс) на 2 часа 15 мин.</span></p>
+            <p><strong>1.3. Изображения 18+:</strong> не отправлять NSFW / 18+ картинки. <span class="punishment">Наказание: Бан на сервере на 1 месяц.</span></p>
+            <p><strong>1.4. Проверка новичков по понедельникам:</strong> каждый понедельник проверяются анкеты. Если за неделю участник не заполнил анкету на роль «Игрок» и у него не было веской причины — <span class="punishment">Кик с сервера.</span></p>
+            <p><strong>1.5. Попрошайничество ролей:</strong> не выпрашивать роли, если вы не прошли обзвон или не входили в доверие более 4 месяцев. <span class="punishment">Наказание: Мут на 30 минут.</span></p>
+            <p><strong>1.6. Доверие к Помощнику:</strong> роль «Помощник» выдаётся только после прохождения проверки на доверие от Владельца.</p>
+            <p><strong>1.7. Чёрный список:</strong> запрещено приглашать людей, находящихся в ЧС сервера, даже с твинков (участников в ЧС можно узнать у Администраторов+ и Владельца).</p>
+            <p><strong>1.8. Реклама:</strong> не рекламировать другие Discord-серверы и посторонние ресурсы. <span class="punishment">Наказание: Мут (текст) на 6 часов.</span></p>
+            <p><strong>1.9. Запрещённый сленг:</strong> нельзя использовать слова: «Поц», «Мамин симпатяга», «Ебать» и похожие. <span class="punishment">Наказание: Мут (текст и войс) на 1 час.</span></p>
+          </div>
+        </details>
+
+        <details class="rule-box">
+          <summary>Подкатегория N2: Правила Администраторов и Модераторов</summary>
+          <div class="rule-content">
+            <p><strong>2.1. Злоупотребление правами:</strong> запрещено выдавать муты, кики или баны без причины и доказательств. <span class="punishment">Наказание: Понижение или снятие роли стаффа.</span></p>
+            <p><strong>2.2. Справедливость и вежливость:</strong> стафф обязан общаться уважительно и судить строго по правилам N1–N12.</p>
+            <p><strong>2.3. Проверка на читы:</strong> проверки проводятся строго в войс-каналах «Проверка 1–5». Если все 5 заняты — перед проверкой в ЛС необходимо предупредить Владельца (Phant1mx).</p>
+            <p><strong>2.4. Конфиденциальность:</strong> запрещено сливать переписки из стафф-каналов обычным игрокам.</p>
+            <p><strong>2.5. Отчётность:</strong> крупные баны и спорные ситуации фиксируются в логах модерации.</p>
+          </div>
+        </details>
+
+        <details class="rule-box">
+          <summary>Подкатегория N3: Тяжкие нарушения и читы</summary>
+          <div class="rule-content">
+            <p><strong>3.1. Использование читов и стороннего ПО:</strong> мы против читов! Отказ от проверки или нахождение читов на демонстрации экрана — <span class="punishment">Бан и занесение в ЧС.</span></p>
+            <p><strong>3.2. Попытка взлома, рейда или обмана:</strong> рейды сервера, вредоносные ссылки и обман администрации — <span class="punishment">Перманентный бан без права амнистии.</span></p>
+          </div>
+        </details>
+
+        <details class="rule-box">
+          <summary>Подкатегория N4: Правила текстовых каналов</summary>
+          <div class="rule-content">
+            <p><strong>4.1. Тематика каналов:</strong> пишите по теме каждого раздела (анкеты — в #анкета, посты по Geometry Dash — в #посты-gd).</p>
+            <p><strong>4.2. Капс и флуд символами:</strong> не злоупотребляйте КАПСОМ и бессмысленным набором букв.</p>
+          </div>
+        </details>
+
+        <details class="rule-box">
+          <summary>Подкатегория N5: Правила голосовых каналов (Войс)</summary>
+          <div class="rule-content">
+            <p><strong>5.1. Адекватный звук:</strong> запрещены громкие крики в микрофон, саундпад-спам и помехи, мешающие остальным.</p>
+            <p><strong>5.2. Вход в закрытые комнаты:</strong> не заходить в комнаты проверки без вызова модератора.</p>
+          </div>
+        </details>
+
+        <details class="rule-box">
+          <summary>Подкатегория N6: Медиа, ссылки и файлы</summary>
+          <div class="rule-content">
+            <p><strong>6.1. Безопасные файлы:</strong> запрещено кидать подозрительные .exe, архивы с паролями и фишинговые ссылки.</p>
+            <p><strong>6.2. Шокирующий контент:</strong> запрещены скримеры, расчленёнка и любой шок-контент.</p>
+          </div>
+        </details>
+
+        <details class="rule-box">
+          <summary>Подкатегория N7: Никнеймы и аватарки</summary>
+          <div class="rule-content">
+            <p><strong>7.1. Читаемый ник:</strong> никнейм не должен содержать оскорблений, мата или копировать ники Владельца и Администрации.</p>
+            <p><strong>7.2. Аватарки:</strong> аватарка должна соответствовать правилам Discord и пункту 1.3.</p>
+          </div>
+        </details>
+
+        <details class="rule-box">
+          <summary>Подкатегория N8: Правила совместных игр (Minecraft, GD, Roblox, VRChat)</summary>
+          <div class="rule-content">
+            <p><strong>8.1. Честное выживание и PvP:</strong> запрещено обманывать союзников при дуэлях и обмене вещами.</p>
+            <p><strong>8.2. Система 3 предупреждений:</strong> 1-е нарушение — официальное предупреждение от руководства; 2-е нарушение — полный снос вещей; 3-е нарушение — бан.</p>
+          </div>
+        </details>
+
+        <details class="rule-box">
+          <summary>Подкатегория N9: Ивенты, конкурсы и розыгрыши</summary>
+          <div class="rule-content">
+            <p><strong>9.1. Честное участие:</strong> запрещено участвовать в конкурсах с нескольких твинк-аккаунтов.</p>
+          </div>
+        </details>
+
+        <details class="rule-box">
+          <summary>Подкатегория N10: Использование ботов</summary>
+          <div class="rule-content">
+            <p><strong>10.1. Команды ботов:</strong> использовать команды музыкальных и игровых ботов строго в отведённом для этого канале.</p>
+          </div>
+        </details>
+
+        <details class="rule-box">
+          <summary>Подкатегория N11: Получение ролей «Игрок» и «Любимчик»</summary>
+          <div class="rule-content">
+            <p><strong>11.1. Роль «Игрок»:</strong> выдаётся после заполнения анкеты в специальном канале Discord.</p>
+            <p><strong>11.2. Роль «Любимчик»:</strong> выдаётся лично Владельцем за активность, дружбу и вклад в развитие сообщества.</p>
+          </div>
+        </details>
+
+        <details class="rule-box">
+          <summary>Подкатегория N12: Жалобы, апелляции и безопасность</summary>
+          <div class="rule-content">
+            <p><strong>12.1. Подача жалобы:</strong> если вы заметили нарушителя или читера — сообщите модератору или в канал жалоб с прикреплением скриншотов/видео.</p>
+            <p><strong>12.2. Незнание правил:</strong> незнание Кодекса N1–N12 не освобождает от ответственности.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Генератор анкеты -->
+  <section id="anketa">
+    <div class="container">
+      <h2 class="section-title" style="justify-content: center;">📋 Генератор анкеты на роль «Игрок»</h2>
+      <p class="section-subtitle" style="text-align: center;">Заполни поля ниже, нажми «Скопировать анкету» и вставь готовый текст в канал анкет в Discord</p>
+
+      <div class="anketa-card">
+        <div class="form-group">
+          <label for="nickInput">1. Твой ник в Discord и играх:</label>
+          <input type="text" id="nickInput" class="form-control" placeholder="Например: Phant1mx" oninput="updateAnketa()" />
+        </div>
+
+        <div class="form-group">
+          <label for="ageInput">2. Сколько тебе лет (или как к тебе обращаться):</label>
+          <input type="text" id="ageInput" class="form-control" placeholder="Например: Иван, 14 лет" oninput="updateAnketa()" />
+        </div>
+
+        <div class="form-group">
+          <label>3. В какие игры играешь:</label>
+          <div class="games-checkboxes">
+            <label class="chip-check"><input type="checkbox" value="Geometry Dash" onchange="updateAnketa()" checked /> Geometry Dash</label>
+            <label class="chip-check"><input type="checkbox" value="Minecraft" onchange="updateAnketa()" checked /> Minecraft</label>
+            <label class="chip-check"><input type="checkbox" value="Roblox" onchange="updateAnketa()" /> Roblox</label>
+            <label class="chip-check"><input type="checkbox" value="VRChat" onchange="updateAnketa()" /> VRChat</label>
+            <label class="chip-check"><input type="checkbox" value="Counter-Strike 2" onchange="updateAnketa()" /> Counter-Strike 2</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="chip-check" style="border-color: rgba(35, 165, 89, 0.5);">
+            <input type="checkbox" id="rulesConfirm" onchange="updateAnketa()" checked /> Я прочитал(а) Кодекс правил N1–N12 и обязуюсь играть без читов
+          </label>
+        </div>
+
+        <button type="button" class="btn btn-primary" style="width: 100%;" onclick="copyAnketa()">📋 Скопировать готовую анкету для Discord</button>
+
+        <div class="preview-box" id="anketaPreview"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Модальное окно: Рекомендуем установить -->
+  <div class="modal-backdrop" id="gamesModal" onclick="closeGamesModalOnBackdrop(event)">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h2>🎮 Рекомендуем установить — Библиотека Phant1mx (17 игр)</h2>
+        <button type="button" class="modal-close" onclick="closeGamesModal()" title="Закрыть">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-hint">Нажми на обложку (аватарку) любой игры из списка, чтобы сразу открыть её официальную страницу в Steam:</p>
+        <div class="games-modal-grid">
+          
+        <a href="https://store.steampowered.com/app/730/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Counter-Strike 2 в Steam">
+          <div class="game-thumb-wrap">
+            <span class="fav-badge">★ ИЗБРАННОЕ</span>
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/730/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/730/capsule_231x87.jpg';" alt="Counter-Strike 2" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Counter-Strike 2</div>
+            <div class="game-tag">Избранное • Шутер</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/322170/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Geometry Dash в Steam">
+          <div class="game-thumb-wrap">
+            <span class="fav-badge">★ ИЗБРАННОЕ</span>
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/322170/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/322170/capsule_231x87.jpg';" alt="Geometry Dash" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Geometry Dash</div>
+            <div class="game-tag">Избранное • Ритм-платформер</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/3244220/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть A Game About Digging A Hole™ в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3244220/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/3244220/capsule_231x87.jpg';" alt="A Game About Digging A Hole™" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">A Game About Digging A Hole™</div>
+            <div class="game-tag">Приключение • Инди</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/1712830/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Baldi's Basics Classic Remastered в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1712830/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1712830/capsule_231x87.jpg';" alt="Baldi's Basics Classic Remastered" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Baldi's Basics Classic Remastered</div>
+            <div class="game-tag">Хоррор • Стелс</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/1275890/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Baldi's Basics Plus в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1275890/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1275890/capsule_231x87.jpg';" alt="Baldi's Basics Plus" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Baldi's Basics Plus</div>
+            <div class="game-tag">Рогалик • Хоррор</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/2923300/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Banana в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2923300/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/2923300/capsule_231x87.jpg';" alt="Banana" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Banana</div>
+            <div class="game-tag">Кликер • Бесплатно</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/291550/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Brawlhalla в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/291550/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/291550/capsule_231x87.jpg';" alt="Brawlhalla" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Brawlhalla</div>
+            <div class="game-tag">Файтинг • Бесплатно</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/2977660/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Cats в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2977660/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/2977660/capsule_231x87.jpg';" alt="Cats" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Cats</div>
+            <div class="game-tag">Кликер • Бесплатно</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/1782210/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Crab Game в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1782210/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1782210/capsule_231x87.jpg';" alt="Crab Game" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Crab Game</div>
+            <div class="game-tag">Мультиплеер • Бесплатно</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/2990600/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Fireside Feelings в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2990600/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/2990600/capsule_231x87.jpg';" alt="Fireside Feelings" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Fireside Feelings</div>
+            <div class="game-tag">Уютная • Инди</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/4704690/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть MECCHA CHAMELEON в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4704690/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/4704690/capsule_231x87.jpg';" alt="MECCHA CHAMELEON" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">MECCHA CHAMELEON</div>
+            <div class="game-tag">Прятки • Экшен</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/2524890/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Pixel Gun 3D: PC Edition в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2524890/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/2524890/capsule_231x87.jpg';" alt="Pixel Gun 3D: PC Edition" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Pixel Gun 3D: PC Edition</div>
+            <div class="game-tag">Шутер • Бесплатно</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/405640/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Pony Island в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/405640/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/405640/capsule_231x87.jpg';" alt="Pony Island" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Pony Island</div>
+            <div class="game-tag">Головоломка • Инди</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/1721470/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Poppy Playtime в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1721470/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1721470/capsule_231x87.jpg';" alt="Poppy Playtime" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Poppy Playtime</div>
+            <div class="game-tag">Хоррор • Головоломка</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/1961460/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть PROJECT: PLAYTIME в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1961460/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1961460/capsule_231x87.jpg';" alt="PROJECT: PLAYTIME" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">PROJECT: PLAYTIME</div>
+            <div class="game-tag">Кооп-хоррор • Мультиплеер</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/438100/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть VRChat в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/438100/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/438100/capsule_231x87.jpg';" alt="VRChat" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">VRChat</div>
+            <div class="game-tag">Социальная • VR / ПК</div>
+          </div>
+        </a>
+    
+
+        <a href="https://store.steampowered.com/app/1941780/" target="_blank" rel="noopener noreferrer" class="game-card" title="Открыть Zumbi Blocks 2 Open Alpha в Steam">
+          <div class="game-thumb-wrap">
+            
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1941780/header.jpg" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1941780/capsule_231x87.jpg';" alt="Zumbi Blocks 2 Open Alpha" loading="lazy" />
+            <div class="game-overlay">Открыть в Steam ↗</div>
+          </div>
+          <div class="game-info">
+            <div class="game-title">Zumbi Blocks 2 Open Alpha</div>
+            <div class="game-tag">Зомби-выживание • Бесплатно</div>
+          </div>
+        </a>
+    
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Подвал -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://discord.gg/vYhbw3hPed" target="_blank" rel="noopener noreferrer" class="btn btn-primary">🚀 Вступить в Discord</a>
+        <button type="button" class="btn btn-recommend" onclick="openGamesModal()">🎮 Рекомендуем установить</button>
+        <a href="https://discord.com/" target="_blank" rel="noopener noreferrer" class="btn btn-download">⬇️ Нету Discord? Скачай!</a>
+        <a href="https://www.youtube.com/@phant1mx_original_2" target="_blank" rel="noopener noreferrer" class="btn btn-outline">📺 YouTube Основной</a>
+        <a href="https://www.twitch.tv/phant1mx_original" target="_blank" rel="noopener noreferrer" class="btn btn-outline">🟣 Twitch</a>
+      </div>
+      <p>© 2026 Server By Phant1mx — Официальный сайт сообщества. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script>
+    function copyInvite() {
+      const link = "https://discord.gg/vYhbw3hPed";
+      navigator.clipboard.writeText(link).then(() => {
+        alert("✅ Вечная ссылка скопирована: " + link);
+      });
+    }
+
+    function updateAnketa() {
+      const nick = document.getElementById('nickInput').value.trim() || 'Не указан';
+      const age = document.getElementById('ageInput').value.trim() || 'Не указано';
+      const checkedGames = Array.from(document.querySelectorAll('.games-checkboxes input:checked')).map(el => el.value);
+      const gamesStr = checkedGames.length > 0 ? checkedGames.join(', ') : 'Разные игры';
+      const rulesOk = document.getElementById('rulesConfirm').checked ? 'Да, прочитал(а) и согласен(на) (N1–N12)' : 'Ещё читаю правила';
+
+      const text = `📋 АНКЕТА НА РОЛЬ «ИГРОК» (Server By Phant1mx)
+• Никнейм: ${nick}
+• Имя / Возраст: ${age}
+• Любимые игры: ${gamesStr}
+• Знакомство с правилами: ${rulesOk}`;
+
+      document.getElementById('anketaPreview').textContent = text;
+    }
+
+    function copyAnketa() {
+      updateAnketa();
+      const text = document.getElementById('anketaPreview').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("✅ Анкета скопирована! Теперь открой канал #анкета в Discord и нажми Ctrl+V.");
+      });
+    }
+
+    function openGamesModal() {
+      document.getElementById('gamesModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeGamesModal() {
+      document.getElementById('gamesModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function closeGamesModalOnBackdrop(e) {
+      if (e.target.id === 'gamesModal') {
+        closeGamesModal();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeGamesModal();
+    });
+
+    updateAnketa();
+  </script>
+</body>
+</html>
